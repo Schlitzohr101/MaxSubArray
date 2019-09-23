@@ -28,18 +28,17 @@ class Array:
             this_sum = 0
             for j in range(i,n):
                 this_sum += self.ar[j]
-            if this_sum > max_sum:
-                max_sum = this_sum
+                if this_sum > max_sum:
+                    max_sum = this_sum
         return max_sum
 
     def solution3(self, l, r):
-
         if l == r:
             return self.ar[l]
         if r == l+1:
             return max(self.ar[l],self.ar[r],self.ar[l]+self.ar[r])
 
-        m = int(l+r/2)
+        m = int((l+r)/2)
 
         mss_left = self.solution3(l,m)
         mss_right = self.solution3(m+1,r)
@@ -72,3 +71,19 @@ class Array:
             elif this_sum < 0:
                 this_sum = 0
         return max_sum
+
+    def compare1(self, C, m, n):
+        return C.microseconds *  (math.pow(float(n),3.0)/math.pow(float(m),3.0))
+        
+
+    def compare2(self, C, m, n):
+        a = C.microseconds / (math.pow(float(m),2.0) + m)
+        return (a * math.pow(float(n),2.0)) + n
+
+    def compare3(self, C, m, n):
+        a = C.microseconds/ (m * math.log2(float(m)))
+        return a * n * math.log2(float(n))  
+
+    def compare4(self, C, m, n):
+        slope = C.microseconds/m
+        return n * slope

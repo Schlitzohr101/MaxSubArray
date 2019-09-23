@@ -41,15 +41,33 @@ def choice2():
     given = input("Enter the size of the array to test\n:")
     A = Array([])
     A.newAr(int(given))
+    
 
-    given = input("Enter each Method to test i.e.(1234)\n:")
+    # python3 implimentation
+    given = str(input("Enter each Method to test i.e.(1234)\n:"))
     for i in range(0,len(given)):
         method = measures(given[i])
         method(A)
 
         
 def choice3():
-    print("this is the third\n")
+    given = input("Enter the Method # to test\n:")
+    methodNum = int(given)
+    method = measures(given)
+    given = input("Enter the size of the array to test\n:")
+    A = Array([])
+    m = int(given)
+    A.newAr(m)
+    given = input("Enter the size of the array to estimate\n:")
+    n = int(given)
+    C = method(A)
+    umm = switcher(A, methodNum)
+    expected = umm(C, m, n)
+    print("The expected time for Method #",methodNum," is ", expected, "(µs)\n")
+    A.newAr(n)
+    method(A)
+    
+    
 
 def measures(x):
     return {
@@ -59,6 +77,15 @@ def measures(x):
             '4': measure4,
         }.get(x)
 
+def switcher(A, x):
+    def closure(C, m, n):
+        return {
+            1: A.compare1(C, m, n),
+            2: A.compare2(C, m, n),
+            3: A.compare3(C, m, n),
+            4: A.compare4(C, m, n),
+        }.get(x)
+    return closure    
 
 def measure1(A):
     print("Method 1 is being tested\n")
@@ -70,7 +97,8 @@ def measure1(A):
     if c.seconds != 0:
         print("elapsed time: ",c.seconds,"(s)\n")
     else:
-        print("elapsed time: ",c.microseconds,"(ms)\n")
+        print("elapsed time: ",c.microseconds,"(µs)\n")
+    return c
 
 
 def measure2(A):
@@ -83,7 +111,8 @@ def measure2(A):
     if c.seconds != 0:
         print("elapsed time: ",c.seconds,"(s)\n")
     else:
-        print("elapsed time: ",c.microseconds,"(ms)\n")
+        print("elapsed time: ",c.microseconds,"(µs)\n")
+    return c
 
 def measure3(A):
     l = 0
@@ -97,7 +126,8 @@ def measure3(A):
     if c.seconds != 0:
         print("elapsed time: ",c.seconds,"(s)\n")
     else:
-        print("elapsed time: ",c.microseconds,"(ms)\n")
+        print("elapsed time: ",c.microseconds,"(µs)\n")
+    return c
     
 def measure4(A):
     print("Method 4 is being tested\n")
@@ -109,7 +139,8 @@ def measure4(A):
     if c.seconds != 0:
         print("elapsed time: ",c.seconds,"(s)\n")
     else:
-        print("elapsed time: ",c.microseconds,"(ms)\n")
+        print("elapsed time: ",c.microseconds,"(µs)\n")
+    return c
 
 
 main()
