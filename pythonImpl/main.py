@@ -63,10 +63,9 @@ def choice3():
     C = method(A)
     umm = switcher(A, methodNum)
     expected = umm(C, m, n)
-    print("The expected time for Method #",methodNum," is ", expected, "(µs)\n")
+    print("The expected time for Method #",methodNum," is %.2f" % expected, "(µs)\n")
     A.newAr(n)
     method(A)
-    
     
 
 def measures(x):

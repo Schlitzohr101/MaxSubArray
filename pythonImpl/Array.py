@@ -77,12 +77,11 @@ class Array:
         
 
     def compare2(self, C, m, n):
-        a = C.microseconds / (math.pow(float(m),2.0) + m)
-        return (a * math.pow(float(n),2.0)) + n
+        return C.microseconds * ( math.pow(float(n),2.0) / math.pow(float(m),2.0) )
 
     def compare3(self, C, m, n):
-        a = C.microseconds/ (m * math.log2(float(m)))
-        return a * n * math.log2(float(n))  
+        a = C.microseconds/ (m * math.log1p(float(m)))
+        return a * n * math.log1p(float(n))  
 
     def compare4(self, C, m, n):
         slope = C.microseconds/m

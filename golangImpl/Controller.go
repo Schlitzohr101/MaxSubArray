@@ -17,7 +17,7 @@ func (C Controller) Menu() {
 	fmt.Println("MENU \n")
 	fmt.Println("1) Enter your own array to test the 4 methodologies")
 	fmt.Println("2) Enter a size, to create an array of that size to test select methods")
-	fmt.Println("3) Select a method to estimate the runtime for different array sizes for a single method")
+	fmt.Println("3) Select a method to estimate the runtime for different array sizes")
 	fmt.Println("4) Quit")
 }
 
@@ -35,9 +35,21 @@ func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-// func measureTaker
-// 	}
-// }
+func randArray(ar []int, i int) {
+	for j := 0; j < i; j++ {
+		ar[j] = randInt(-50, 50)
+	}
+}
+
+func measureTaker(x int) func([]int) time.Duration {
+	m := map[int]func([]int) time.Duration{
+		1: measure1,
+		2: measure2,
+		3: measure3,
+		4: measure4,
+	}
+	return m[x]
+}
 
 func option1() {
 	fmt.Println("Input elements of your array followed by ',' i.e. : 1,2,...\n:")
@@ -72,9 +84,7 @@ func option2() {
 	}
 	ar := make([]int, i)
 
-	for j := 0; j < i; j++ {
-		ar[j] = randInt(-50, 50)
-	}
+	randArray(ar, i)
 
 	fmt.Print("Enter each Method to test i.e.(1234)\n:")
 	input := bufio.NewReader(os.Stdin)
@@ -99,6 +109,55 @@ func option2() {
 }
 
 func option3() {
+	fmt.Print("Which method would you like to test\n:")
+	var i int
+	_, err := fmt.Scanf("%d", &i)
+	if err != nil {
+		fmt.Println("failed to retrieve data from scanner")
+	}
+	methodNum := i
+	method := measureTaker(methodNum)
+	fmt.Print("Enter the baseline array size\n:")
+	_, err = fmt.Scanf("%d", &i)
+	if err != nil {
+		fmt.Println("failed to retrieve data from scanner")
+	}
+	m := i
+	ar := make([]int, m)
+	randArray(ar, m)
+
+	fmt.Print("Enter an array size to estimate\n:")
+	_, err = fmt.Scanf("%d", &i)
+	if err != nil {
+		fmt.Println("failed to retrieve data from scanner")
+	}
+	diff := method(ar)
+	n := i
+	ar = make([]int, n)
+	randArray(ar, n)
+
+	var estimate float64
+
+	switch methodNum {
+	case 1:
+		estimate = calculate1(m, n, diff)
+		break
+	case 2:
+		estimate = calculate2(m, n, diff)
+		break
+	case 3:
+		estimate = calculate3(m, n, diff)
+		break
+	case 4:
+		estimate = calculate4(m, n, diff)
+		break
+	default:
+		estimate = 0
+	}
+
+	fmt.Println("The expectied time for Method #", methodNum, "at array size", n, "is ", estimate)
+
+	method(ar)
 
 }
 
@@ -193,44 +252,66 @@ func solution4(ar []int) int {
 	return max_sum
 }
 
-func measure1(ar []int) {
+func measure1(ar []int) time.Duration {
 	fmt.Println("Method 1 is being measured")
-	fmt.Println("Array to be tested: ", ar)
+	//fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
 	fmt.Println("MSS found: ", solution1(ar))
 	t2 := time.Now()
 	diff := t2.Sub(t1)
 	fmt.Println("Elapsed time: ", diff)
+	return diff
 }
 
-func measure2(ar []int) {
+func measure2(ar []int) time.Duration {
 	fmt.Println("Method 2 is being measured")
-	fmt.Println("Array to be tested: ", ar)
+	//fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
 	fmt.Println("MSS found: ", solution2(ar))
 	t2 := time.Now()
 	diff := t2.Sub(t1)
 	fmt.Println("Elapsed time: ", diff)
+	return diff
 }
 
-func measure3(ar []int) {
+func measure3(ar []int) time.Duration {
 	l := 0
 	r := len(ar) - 1
-	fmt.Println("Method 3 is being measured")
+	//fmt.Println("Method 3 is being measured")
 	fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
 	fmt.Println("MSS found: ", solution3(ar, l, r))
 	t2 := time.Now()
 	diff := t2.Sub(t1)
 	fmt.Println("Elapsed time: ", diff)
+	return diff
 }
 
-func measure4(ar []int) {
+func measure4(ar []int) time.Duration {
 	fmt.Println("Method 4 is being measured")
-	fmt.Println("Array to be tested: ", ar)
+	//fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
 	fmt.Println("MSS found: ", solution4(ar))
 	t2 := time.Now()
 	diff := t2.Sub(t1)
 	fmt.Println("Elapsed time: ", diff)
+	return diff
+}
+
+func calculate1(m int, n int, diff time.Duration) float64 {
+	return float64(diff.Nanoseconds()) * (math.Pow(float64(n), 3.0) / math.Pow(float64(m), 3.0))
+}
+
+func calculate2(m int, n int, diff time.Duration) float64 {
+	return float64(diff.Nanoseconds()) * (math.Pow(float64(n), 2.0) / math.Pow(float64(m), 2.0))
+}
+
+func calculate3(m int, n int, diff time.Duration) float64 {
+	a := float64(diff.Nanoseconds()) / (float64(m) * math.Log(float64(m)))
+	return a * float64(n) * math.Log(float64(n))
+}
+
+func calculate4(m int, n int, diff time.Duration) float64 {
+	slope := diff.Nanoseconds() / int64(m)
+	return float64(slope) * float64(n)
 }
