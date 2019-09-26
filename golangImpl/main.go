@@ -1,21 +1,31 @@
+/*
+William Murray
+CECS 328
+Project #1 Testing different algorithms
+*/
+
 package main
 
 import (
 	"fmt"
 )
 
+//main method to run from
 func main() {
-	// arTester := []int{1, 2, 3, 4}
 
+	//define controller object
 	C := Controller{}
 
+	//view the menu
 	C.Menu()
 
+	//define var to take in users input
 	var i int
-	_, err := fmt.Scanf("%d", &i)
+	_, err := fmt.Scanf("%d", &i) //input goes to the address of the defined var
 	if err != nil {
 		fmt.Println("failed to retrieve data from scanner")
 	}
+	//loop for program features
 	for i != 4 {
 		method := C.choiceTaker(i)
 		method()
