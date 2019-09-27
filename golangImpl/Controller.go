@@ -263,29 +263,42 @@ func solution2(ar []int) int {
 
 //divide and conquer implimentation
 //Using recursive approach
+//recursive methods give time complexity of O(nlogn) runtime
+// l and r are indexes in this case
 func solution3(ar []int, l int, r int) int {
+	//if the indexes are the same return the value in the index
 	if r == l {
 		return ar[l]
 	}
 
+	//this case, l and r are right next to each other,
+	//so return either the larger of the two, or both if their sum is largest
 	if r == l+1 {
 		return int(math.Max(float64(ar[l]), math.Max(float64(ar[r]), float64(ar[l]+ar[r]))))
 	}
 
+	//neither of the common cases are present so divide the array by integer division
 	m := (l + r) / 2
 
+	//calculate the maximum sum for either side of the array
 	msl := solution3(ar, l, m)
 	msr := solution3(ar, m+1, r)
 
+	//calculate the sum for the middle case of the array
 	msm := solution3_mid(ar, l, m, r)
 
+	//return the max of each of the array sections
 	return int(math.Max(float64(msl), math.Max(float64(msr), float64(msm))))
 }
 
+//sub recursive step to calculate the maximum sum across the left and right sub arrays
 func solution3_mid(ar []int, left int, mid int, right int) int {
+	//set baseline max to an impossibly small value, such that nothing can be smaller
+	//as we are summing possibly negative numbers in sequence, giving a extremely small
+	//negative num can be overwritten, if the array size is large enough
 	max_left := int(math.Inf(-1))
 	sum := 0
-
+	//iterate from the middle outwards to collect the largest left half of the sum
 	for i := mid; i >= left; i-- {
 		sum += ar[i]
 
@@ -293,9 +306,10 @@ func solution3_mid(ar []int, left int, mid int, right int) int {
 			max_left = sum
 		}
 	}
-
+	// '                                                                               '
 	max_right := int(math.Inf(-1))
 	sum = 0
+	//iterate from the middle outwards to the right to find largest right hand sum
 	for i := mid + 1; i <= right; i++ {
 		sum += ar[i]
 
@@ -303,9 +317,13 @@ func solution3_mid(ar []int, left int, mid int, right int) int {
 			max_right = sum
 		}
 	}
+	// return the sum of the max sub array from the left and the right, both echo out from the middle, so
+	//this sum is effectively the total sum of the array inbetween left and right halves
 	return max_right + max_left
 }
 
+//simple forloop that deprecates the current sum when it dips below 0
+//Single for loop yields O(n) runtime
 func solution4(ar []int) int {
 	max_sum := 0
 	this_sum := 0

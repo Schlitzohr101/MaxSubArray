@@ -1,7 +1,7 @@
 /*
 William Murray
 CECS 328
-Project #1 Testing different algorithms
+Project #1 Testing different algorithms runtimes
 */
 
 package main
