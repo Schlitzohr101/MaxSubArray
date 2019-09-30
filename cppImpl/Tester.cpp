@@ -34,9 +34,13 @@ void Tester::clear() {
 int Tester::size() {
     return Ar.size();
 }
-vector<int>& Tester::getAr() {
-    return Ar;
+
+int Tester::at(int x) {
+    return Ar.at(x);
 }
+// vector<int>& Tester::getAr() {
+//     return Ar;
+// }
 
 void Tester::addInt(int x) {
     Ar.push_back(x);
@@ -133,4 +137,74 @@ int Tester::alg4() {
         }
     }
     return maxSum;
+}
+
+float Tester::measure1() {
+    cout << "Algorithm #1 is being tested" << endl;
+    cout << "Array to be tested:\n";
+    for (int i = 0; i < Ar.size(); i++)
+    {
+        cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    }
+    clock_t start = clock();
+    cout << "MSS found: " << alg1() << endl;
+    float diff = float(clock() - start);
+    cout << "Elapsed time: ";
+    clocksToTime(diff);
+    cout << endl << endl;
+
+    return diff; 
+}
+
+float Tester::measure2() {
+    cout << "Algorithm #2 is being tested" << endl;
+    cout << "Array to be tested:\n";
+    for (int i = 0; i < Ar.size(); i++)
+    {
+        cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    }
+    clock_t start = clock();
+    cout << "MSS found: " << alg2() << endl;
+    float diff = float(clock() - start);
+    cout << "Elapsed time: ";
+    clocksToTime(diff);
+    cout << endl << endl;
+
+    return diff; 
+}
+
+float Tester::measure3() {
+    cout << "Algorithm #3 is being tested" << endl;
+    cout << "Array to be tested:\n";
+    for (int i = 0; i < Ar.size(); i++)
+    {
+        cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    }
+    int l = 0;
+    int r = Ar.size()-1;
+    clock_t start = clock();
+    cout << "MSS found: " << alg3(l,r) << endl;
+    float diff = float(clock() - start);
+    cout << "Elapsed time: ";
+    clocksToTime(diff);
+    cout << endl << endl;
+
+    return diff; 
+}
+
+float Tester::measure4() {
+    cout << "Algorithm #4 is being tested" << endl;
+    cout << "Array to be tested:\n";
+    for (int i = 0; i < Ar.size(); i++)
+    {
+        cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    }
+    clock_t start = clock();
+    cout << "MSS found: " << alg4() << endl;
+    float diff = float(clock() - start);
+    cout << "Elapsed time: ";
+    clocksToTime(diff);
+    cout << endl << endl;
+
+    return diff; 
 }
