@@ -2,7 +2,7 @@
 Program to determine the maximum sum of a sub array within a given array
 
 ## Python
-dependencies python 3 >
+dependencies python 3 >\n
 to run 
 ```python3 main.py```
 
