@@ -1,11 +1,15 @@
 #include "header.h"
 
+//Builds blank array
 Tester::Tester() {Ar = vector<int>();}
 
+//Builds with argument array
 Tester::Tester(vector<int> ar ) {
     Ar = ar;
 }
- 
+
+//Builds array with random values between -50-50
+//of size n
 Tester::Tester(int n) {
     srand(time(0));
     for (int i = 0; i < n; i++)
@@ -14,6 +18,7 @@ Tester::Tester(int n) {
     }
 }
 
+//clears memory
 Tester::~Tester() {
     Ar.clear();
 }
@@ -38,26 +43,36 @@ int Tester::size() {
 int Tester::at(int x) {
     return Ar.at(x);
 }
-// vector<int>& Tester::getAr() {
-//     return Ar;
-// }
 
 void Tester::addInt(int x) {
     Ar.push_back(x);
 }
 
+/*
+Algorithm 1
+thriple nested loops
+runtime of O(n^3)
+*/
 int Tester::alg1() {
     int maxSum = 0;
 
     // cout << "here" << endl;
+    //sets the primary index
     for (int i = 0; i < Ar.size(); i++) {
+        //each subsequent loop is then starts at
+        //whatever the primary index is at 
+        //loop is the end index
         for (int j = i; j < Ar.size(); j++)
         {
+            //intialize the temperary sum
             int thisSum = 0;
+            //loop is the adding index
             for (int k = i; k <= j; k++)
             {
+                //each value is added to the temporary sum
                 thisSum += Ar[k];
             }
+            //if its bigger than the max sum then max = temp
             if (thisSum > maxSum) {
                 maxSum = thisSum;
             }
@@ -66,11 +81,18 @@ int Tester::alg1() {
     return maxSum;
 }
 
+/*
+Algorithm #2
+double nested
+runtime of O(n^2)
+*/
 int Tester::alg2() {
     int maxSum = 0;
+    //sets primary index
     for (int i = 0; i < Ar.size(); i++)
     {
         int thisSum = 0;
+        //sets the adding index
         for (int j = i; j < Ar.size();j++) {
             thisSum += Ar[j];
             if (thisSum > maxSum) {
@@ -81,16 +103,26 @@ int Tester::alg2() {
     return maxSum;
 }
 
+/*
+Algorithm #3
+recursive summation
+runtime of O(nlog(n))
+*/
 int Tester::alg3(int l, int r) {
+    //recursive checks
+    //if the argument indexes are equal to each other
     if (l == r) {
-        return max(Ar[l],Ar[r]);
+        return Ar[l];
     }
+    //if the two indexs are side by side
     if (l+1 == r) {
         return max (Ar[l],max(Ar[r],Ar[l]+Ar[r]));
     }
 
+    //calculate the middle index (integer math)
     int m = (l + r)/2;
 
+    //recursive calls
     int LSS = alg3(l, m);
     int RSS = alg3(m+1,r);
     int MSS = alg3middle(l,m,r);
