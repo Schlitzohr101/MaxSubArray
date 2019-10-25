@@ -1,3 +1,4 @@
+//William Murray
 package main
 
 import (
@@ -179,7 +180,7 @@ func option3() {
 	randArray(ar, n)
 
 	//create var to hold the float val of the estimated runtime
-	var estimate float64
+	estimate := float64(0)
 
 	switch methodNum {
 	case 1:
@@ -387,11 +388,11 @@ func measure4(ar []int) time.Duration {
 }
 
 func calculate1(m int, n int, diff time.Duration) float64 {
-	return float64(diff.Nanoseconds()) * (math.Pow(float64(n), 3.0) / math.Pow(float64(m), 3.0))
+	return float64(diff.Nanoseconds()) * math.Pow(float64(n/m), 3.0)
 }
 
 func calculate2(m int, n int, diff time.Duration) float64 {
-	return float64(diff.Nanoseconds()) * (math.Pow(float64(n), 2.0) / math.Pow(float64(m), 2.0))
+	return float64(diff.Nanoseconds()) * math.Pow(float64(n/m), 2.0)
 }
 
 func calculate3(m int, n int, diff time.Duration) float64 {
@@ -400,6 +401,5 @@ func calculate3(m int, n int, diff time.Duration) float64 {
 }
 
 func calculate4(m int, n int, diff time.Duration) float64 {
-	slope := diff.Nanoseconds() / int64(m)
-	return float64(slope) * float64(n)
+	return float64(diff.Nanoseconds()) * (float64(n) / float64(m))
 }

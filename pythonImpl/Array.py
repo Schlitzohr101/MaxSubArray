@@ -1,3 +1,4 @@
+#William Murray
 import random
 import math
 class Array:
@@ -73,16 +74,16 @@ class Array:
         return max_sum
 
     def compare1(self, C, m, n):
-        return C.microseconds *  (math.pow(float(n),3.0)/math.pow(float(m),3.0))
+        return C.microseconds *  (math.pow(float(n/m),3.0))
         
 
     def compare2(self, C, m, n):
-        return C.microseconds * ( math.pow(float(n),2.0) / math.pow(float(m),2.0) )
+        return C.microseconds * ( math.pow(float(n/m),2.0) )
 
     def compare3(self, C, m, n):
         a = C.microseconds/ (m * math.log1p(float(m)))
         return a * n * math.log1p(float(n))  
 
     def compare4(self, C, m, n):
-        slope = C.microseconds/m
-        return n * slope
+        return C.microseconds * (float(n)/m)
+        

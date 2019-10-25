@@ -1,3 +1,4 @@
+//William Murray
 #include "header.h"
 
 int main() {
@@ -141,11 +142,11 @@ float Measure4(Tester& T) {
 
 
 float calculate1(int m, int n, float runtime) {
-    return runtime * pow(float(n/m),3.0);
+    return runtime * pow((float(n)/m),3.0);
 }
 
 float calculate2(int m, int n, float runtime) {
-    return runtime * pow(float(n/m),2.0);
+    return runtime * pow((float(n)/m),2.0);
 }
 
 float calculate3(int m, int n, float runtime) {
@@ -154,7 +155,7 @@ float calculate3(int m, int n, float runtime) {
 }
 
 float calculate4(int m, int n, float runtime) {
-    return runtime * float(n/m);
+    return runtime * (float(n)/m);
 }
 
 void clocksToTime(float diff) {

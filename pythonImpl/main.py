@@ -61,8 +61,8 @@ def choice3():
     given = input("Enter the size of the array to estimate\n:")
     n = int(given)
     C = method(A)
-    umm = switcher(A, methodNum)
-    expected = umm(C, m, n)
+    compare = switcher(A, methodNum)
+    expected = compare(C, m, n)
     print("The expected time for Method #",methodNum," is %.2f" % expected, "(µs)\n")
     A.newAr(n)
     method(A)
@@ -88,11 +88,22 @@ def switcher(A, x):
 
 def measure1(A):
     print("Method 1 is being tested\n")
+    a = datetime.datetime.now()
+    A.solution1()
+    b = datetime.datetime.now()
+    c = b - a
+    for i in range(8):
+        a = datetime.datetime.now()
+        A.solution1()
+        b = datetime.datetime.now()
+        c += b - a
     print("Array to be tested: ",A.ar)
     a = datetime.datetime.now()
     print("MSS found: ",A.solution1())
     b = datetime.datetime.now()
-    c = b - a
+    c += b - a
+    c = c / 10
+    
     if c.seconds != 0:
         print("elapsed time: ",c.seconds,"(s)\n")
     else:
@@ -102,6 +113,8 @@ def measure1(A):
 
 def measure2(A):
     print("Method 2 is being tested\n")
+    for i in range(10):
+        A.solution2()
     print("Array to be tested: ",A.ar)
     a = datetime.datetime.now()
     print("MSS found: ",A.solution2())
@@ -117,6 +130,8 @@ def measure3(A):
     l = 0
     r = len(A.ar)-1
     print("Method 3 is being tested\n")
+    for i in range(10):
+        A.solution3(l,r)
     print("Array to be tested: ",A.ar)
     a = datetime.datetime.now()
     print("MSS found: ",A.solution3(l,r))
@@ -130,6 +145,8 @@ def measure3(A):
     
 def measure4(A):
     print("Method 4 is being tested\n")
+    for i in range(10):
+        A.solution4()
     print("Array to be tested: ",A.ar)
     a = datetime.datetime.now()
     print("MSS found: ",A.solution4())
