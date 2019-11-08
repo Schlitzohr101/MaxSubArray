@@ -174,70 +174,101 @@ int Tester::alg4() {
 
 float Tester::measure1() {
     cout << "Algorithm #1 is being tested" << endl;
-    cout << "Array to be tested:\n";
-    for (int i = 0; i < Ar.size(); i++)
-    {
-        cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
-    }
+    // cout << "Array to be tested:\n";
+    // for (int i = 0; i < Ar.size(); i++)
+    // {
+    //     cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    // }
+
+    float totaldiff = 0;
     clock_t start = clock();
     cout << "MSS found: " << alg1() << endl;
-    float diff = float(clock() - start);
+    totaldiff += float(clock() - start);
+    for (int i = 0; i < 9; i++)
+    {
+        clock_t start = clock();
+        alg1();
+        totaldiff += float(clock() - start);
+    }
+    
+
     cout << "Elapsed time: ";
-    clocksToTime(diff);
+    clocksToTime(totaldiff/10.0);
     cout << endl << endl;
 
-    return diff; 
+    return totaldiff/10.0; 
 }
 
 float Tester::measure2() {
     cout << "Algorithm #2 is being tested" << endl;
-    cout << "Array to be tested:\n";
-    for (int i = 0; i < Ar.size(); i++)
-    {
-        cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    // cout << "Array to be tested:\n";
+    // for (int i = 0; i < Ar.size(); i++)
+    // {
+    //     cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    // }
+    float totaldiff = 0;
+    for (int i = 0; i < 9; i++) {
+        clock_t start = clock();
+         alg2();
+        totaldiff += float(clock() - start);
     }
     clock_t start = clock();
     cout << "MSS found: " << alg2() << endl;
-    float diff = float(clock() - start);
+    totaldiff += float(clock() - start);
     cout << "Elapsed time: ";
-    clocksToTime(diff);
+    clocksToTime(totaldiff/10);
     cout << endl << endl;
 
-    return diff; 
+    return totaldiff/10; 
 }
 
 float Tester::measure3() {
     cout << "Algorithm #3 is being tested" << endl;
-    cout << "Array to be tested:\n";
-    for (int i = 0; i < Ar.size(); i++)
-    {
-        cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
-    }
+    // cout << "Array to be tested:\n";
+    // for (int i = 0; i < Ar.size(); i++)
+    // {
+    //     cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    // }
     int l = 0;
     int r = Ar.size()-1;
+
+    float totaldiff = 0;
+    for (int i = 0; i < 9; i++) {
+        clock_t start = clock();
+         alg3(l,r);
+        totaldiff += float(clock() - start);
+    }
+
     clock_t start = clock();
     cout << "MSS found: " << alg3(l,r) << endl;
-    float diff = float(clock() - start);
+    totaldiff += float(clock() - start);
     cout << "Elapsed time: ";
-    clocksToTime(diff);
+    clocksToTime(totaldiff/10.0);
     cout << endl << endl;
 
-    return diff; 
+    return totaldiff/10.0; 
 }
 
 float Tester::measure4() {
     cout << "Algorithm #4 is being tested" << endl;
-    cout << "Array to be tested:\n";
-    for (int i = 0; i < Ar.size(); i++)
-    {
-        cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    // cout << "Array to be tested:\n";
+    // for (int i = 0; i < Ar.size(); i++)
+    // {
+    //     cout << Ar.at(i) << (i == Ar.size()-1 ? "\n": ", ");
+    // }
+
+    float totaldiff = 0;
+    for (int i = 0; i < 9; i++) {
+        clock_t start = clock();
+        alg4();
+        totaldiff += float(clock() - start);
     }
     clock_t start = clock();
     cout << "MSS found: " << alg4() << endl;
-    float diff = float(clock() - start);
+    totaldiff += float(clock() - start);
     cout << "Elapsed time: ";
-    clocksToTime(diff);
+    clocksToTime(totaldiff/10.0);
     cout << endl << endl;
 
-    return diff; 
+    return totaldiff/10.0; 
 }
