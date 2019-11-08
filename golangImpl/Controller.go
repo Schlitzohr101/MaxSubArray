@@ -348,46 +348,87 @@ func measure1(ar []int) time.Duration {
 	fmt.Println("Method 1 is being measured")
 	//fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
-	fmt.Println("MSS found: ", solution1(ar))
+	solution1(ar)
 	t2 := time.Now()
 	diff := t2.Sub(t1)
-	fmt.Println("Elapsed time: ", diff)
-	return diff
+	for i := 0; i < 8; i++ {
+		t1 := time.Now()
+		solution1(ar)
+		t2 := time.Now()
+		diff += t2.Sub(t1)
+	}
+	t1 = time.Now()
+	fmt.Println("MSS found: ", solution1(ar))
+	t2 = time.Now()
+	diff += t2.Sub(t1)
+	fmt.Println("Elapsed time: ", diff/10)
+	return diff / 10
 }
 
 func measure2(ar []int) time.Duration {
 	fmt.Println("Method 2 is being measured")
-	fmt.Println("Array to be tested: ", ar)
+	//fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
-	fmt.Println("MSS found: ", solution2(ar))
+	solution2(ar)
 	t2 := time.Now()
 	diff := t2.Sub(t1)
-	fmt.Println("Elapsed time: ", diff)
-	return diff
+	for i := 0; i < 8; i++ {
+		t1 := time.Now()
+		solution2(ar)
+		t2 := time.Now()
+		diff += t2.Sub(t1)
+	}
+	t1 = time.Now()
+	fmt.Println("MSS found: ", solution2(ar))
+	t2 = time.Now()
+	diff += t2.Sub(t1)
+
+	fmt.Println("Elapsed time: ", diff/10)
+	return diff / 10
 }
 
 func measure3(ar []int) time.Duration {
 	l := 0
 	r := len(ar) - 1
 	fmt.Println("Method 3 is being measured")
-	fmt.Println("Array to be tested: ", ar)
+	//fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
-	fmt.Println("MSS found: ", solution3(ar, l, r))
+	solution3(ar, l, r)
 	t2 := time.Now()
 	diff := t2.Sub(t1)
-	fmt.Println("Elapsed time: ", diff)
-	return diff
+	for i := 0; i < 8; i++ {
+		t1 := time.Now()
+		solution3(ar, l, r)
+		t2 := time.Now()
+		diff += t2.Sub(t1)
+	}
+	t1 = time.Now()
+	fmt.Println("MSS found: ", solution3(ar, l, r))
+	t2 = time.Now()
+	diff += t2.Sub(t1)
+	fmt.Println("Elapsed time: ", diff/10)
+	return diff / 10
 }
 
 func measure4(ar []int) time.Duration {
 	fmt.Println("Method 4 is being measured")
-	fmt.Println("Array to be tested: ", ar)
+	//fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
-	fmt.Println("MSS found: ", solution4(ar))
+	solution4(ar)
 	t2 := time.Now()
 	diff := t2.Sub(t1)
-	fmt.Println("Elapsed time: ", diff)
-	return diff
+	for i := 0; i < 8; i++ {
+		t1 := time.Now()
+		solution4(ar)
+		t2 := time.Now()
+		diff += t2.Sub(t1)
+	}
+	t1 = time.Now()
+	fmt.Println("MSS found: ", solution4(ar))
+	t2 = time.Now()
+	diff += t2.Sub(t1)
+	fmt.Println("Elapsed time: ", diff/10)
+	return diff / 10
 }
 
 func calculate1(m int, n int, diff time.Duration) float64 {
