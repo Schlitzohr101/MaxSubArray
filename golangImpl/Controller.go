@@ -1,4 +1,5 @@
 //William Murray
+//John Miner
 package main
 
 import (
@@ -122,7 +123,9 @@ func option2() {
 	reply = reply[:len(reply)-1]
 	//check to see which of the methods has been selected!
 	if strings.Contains(reply, "1") {
-		measure1(ar)
+		for index := 0; index < 10; index++ {
+			measure1(ar)
+		}
 	}
 	if strings.Contains(reply, "2") {
 		measure2(ar)
@@ -343,7 +346,7 @@ func solution4(ar []int) int {
 
 func measure1(ar []int) time.Duration {
 	fmt.Println("Method 1 is being measured")
-	fmt.Println("Array to be tested: ", ar)
+	//fmt.Println("Array to be tested: ", ar)
 	t1 := time.Now()
 	fmt.Println("MSS found: ", solution1(ar))
 	t2 := time.Now()

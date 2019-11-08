@@ -1,3 +1,4 @@
+#John Miner
 from Menu import Menu
 from Array import Array
 import re
@@ -113,13 +114,21 @@ def measure1(A):
 
 def measure2(A):
     print("Method 2 is being tested\n")
-    for i in range(10):
+    a = datetime.datetime.now()
+    A.solution2()
+    b = datetime.datetime.now()
+    c = b - a
+    for i in range(8):
+        a = datetime.datetime.now()
         A.solution2()
+        b = datetime.datetime.now()
+        c += b - a
     print("Array to be tested: ",A.ar)
     a = datetime.datetime.now()
     print("MSS found: ",A.solution2())
     b = datetime.datetime.now()
-    c = b - a
+    c += b - a
+    c = c / 10
     if c.seconds != 0:
         print("elapsed time: ",c.seconds,"(s)\n")
     else:
@@ -130,13 +139,21 @@ def measure3(A):
     l = 0
     r = len(A.ar)-1
     print("Method 3 is being tested\n")
-    for i in range(10):
+    a = datetime.datetime.now()
+    A.solution3(l,r)
+    b = datetime.datetime.now()
+    c = b - a
+    for i in range(8):
+        a = datetime.datetime.now()
         A.solution3(l,r)
+        b = datetime.datetime.now()
+        c += b - a
     print("Array to be tested: ",A.ar)
     a = datetime.datetime.now()
     print("MSS found: ",A.solution3(l,r))
     b = datetime.datetime.now()
-    c = b - a
+    c += b - a
+    c = c / 10
     if c.seconds != 0:
         print("elapsed time: ",c.seconds,"(s)\n")
     else:

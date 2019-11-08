@@ -1,4 +1,5 @@
 //William Murray
+//John Miner
 #include "header.h"
 
 //Builds blank array

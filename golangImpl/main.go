@@ -1,5 +1,6 @@
 /*
 William Murray
+John Miner
 CECS 328
 Project #1 Testing different algorithms runtimes
 */

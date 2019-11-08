@@ -1,3 +1,6 @@
+//William Murray
+//John Miner
+
 #ifndef HEADER_H
 #define HEADER_H
 #include<random>

@@ -1,3 +1,5 @@
+//William Murray
+//John Miner
 #ifndef TESTER_H
 #define TESTER_H
 #include<vector>
