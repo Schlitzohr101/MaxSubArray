@@ -69,7 +69,7 @@ given the array, the program will run each of solutions for the given array and 
 Maximum Sub-Array Sum
 */
 func option1() {
-	fmt.Println("Input elements of your array followed by ',' i.e. : 1,2,...\n:")
+	fmt.Print("Input elements of your array followed by ',' i.e. : 1,2,...\n:")
 	input := bufio.NewReader(os.Stdin)
 	reply, err := input.ReadString('\n')
 	if err != nil {
@@ -123,9 +123,7 @@ func option2() {
 	reply = reply[:len(reply)-1]
 	//check to see which of the methods has been selected!
 	if strings.Contains(reply, "1") {
-		for index := 0; index < 10; index++ {
-			measure1(ar)
-		}
+		measure1(ar)
 	}
 	if strings.Contains(reply, "2") {
 		measure2(ar)
@@ -343,6 +341,10 @@ func solution4(ar []int) int {
 
 	return max_sum
 }
+
+/* 	Helper methods for calculating the estimated runtimes of the algorithms, each method is run 10 times
+to account for variations in times per each run of the algorithm
+*/
 
 func measure1(ar []int) time.Duration {
 	fmt.Println("Method 1 is being measured")

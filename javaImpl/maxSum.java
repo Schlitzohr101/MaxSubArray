@@ -1,5 +1,9 @@
-//John miner
-//package maxSum;
+/*
+ * John Miner
+ * William Murray
+*/
+
+// package maxSum;
 import java.math.*;
 import java.util.*;
 
@@ -13,9 +17,8 @@ class maxSum {
 			// j: ending index of sum
 			for (int j = i; j < n; j++) {
 				int thisSum = 0;
-				for (int k = i; k <= j; k++) {
+				for (int k = i; k <= j; k++)
 					thisSum += a.get(k);
-				}
 				if (thisSum > maxSum)
 					maxSum = thisSum;
 			}
@@ -79,13 +82,28 @@ class maxSum {
 		int maxSum = 0;
 		int thisSum = 0;
 		for (int i = 0; i < a.size(); i++) {
-			thisSum += a.get(i);
+			thisSum += (int) a.get(i);
 			if (thisSum > maxSum)
 				maxSum = thisSum;
 			else if (thisSum < 0)
 				thisSum = 0;
 		}
 		return maxSum;
+	}
+
+	static String timeCalculator(long t) {
+		StringBuilder builder = new StringBuilder();
+		// builder.append("Your time is ");
+		if (t/Math.pow(10.0, 9.0) > 1) {
+			builder.append(t/Math.pow(10.0, 9.0) + " seconds\n");
+		} else if (t/Math.pow(10.0, 6.0) > 1) {
+			builder.append(t/Math.pow(10.0, 6.0) + " milli seconds\n");
+		} else if (t/Math.pow(10.0, 3.0) > 1) {
+			builder.append(t/Math.pow(10.0, 3.0) + " micro seconds!!!\n");
+		} else {
+			builder.append(t + " nano seconds!!!\n");
+		}
+		return builder.toString();
 	}
 
 	public static void main(String[] args) {
@@ -97,22 +115,32 @@ class maxSum {
 		int selection = 0;
 
 		while (selection != 4) {
+			array.clear();
 			System.out.println("Please make a selection:\n1) Make your own array \n"
 					+ "2) Time a random array \n3) Select one of the algorithms for computing \n4) Quit ");
 			selection = in.nextInt();
+			in.nextLine();
 			switch (selection) {
 			case 1: {
-				System.out.println("Enter each element of your array followed by commas:");
-				String reply = in.next();
-				String[] values = reply.split(",");
-				for (String var : values) {
-					array.add(Integer.parseInt(var));
+				// System.out.println("Enter number of elements you want in the array");
+				// int n = in.nextInt();
+				System.out.print("Enter your array of numbers seperated by commas (i.e. 1,2,3,...)\n:");
+				String input = in.nextLine();
+				String[] strs = input.split(",");
+				for (String str : strs) {
+					array.add(Integer.parseInt(str));
 				}
-				int n = array.size();
+				// int i = 0;
+				// while (i < n) {
+				// 	System.out.println("Enter a value for your array ");
+				// 	int value = in.nextInt();
+				// 	array.add(value);
+				// 	i++;
+				// }
 				int l = 0;
 				int r = array.size() - 1;
-				int algorithmOne = stupidFreshmen(n, array);
-				int algorithmTwo = slightlyLessStupidSophomore(n, array);
+				int algorithmOne = stupidFreshmen(array.size(), array);
+				int algorithmTwo = slightlyLessStupidSophomore(array.size(), array);
 				int algorithmThree = gettingSmarterJunior(array, l, r);
 				int algorithmFour = superSmartSenior(array);
 
@@ -128,7 +156,7 @@ class maxSum {
 				int n = in.nextInt();
 				int i = 0;
 				Random rand = new Random();
-				System.out.println("Enter a value for your array ");
+				//System.out.println("Enter a value for your array ");
 
 				for (i = 0; i < n; i++) {
 					int value = rand.nextInt(((100 - 0) + 1) - 50);
@@ -146,25 +174,41 @@ class maxSum {
 					int c = 0;
 
 					while (c != choiceArray.length) {
-						System.out.println(choiceArray[c]);
+						// System.out.println(choiceArray[c]);
 						switch (choiceArray[c]) {
 
 						case '1': {
 
-							long start = System.currentTimeMillis();
+							long start = System.nanoTime();
 							int algorithmOne = stupidFreshmen(n, array);
-							long end = System.currentTimeMillis();
-							System.out.println("Your time is " + (end - start) + " milli seconds");
-							System.out.println("Your stupid sum 1 is " + algorithmOne);
+							long end = System.nanoTime();
+							long diff = (end - start);
+							for (int j = 0; j < 9; j++) {
+								long s = System.nanoTime();
+								stupidFreshmen(n, array);
+								long e = System.nanoTime();
+								diff += (e - s);
+							}
+							System.out.print("Your time is ");
+							System.out.println(timeCalculator(diff/10));
+							System.out.println("Your algorithm sum 1 is " + algorithmOne);
 						}
 							break;
 
 						case '2': {
-							long start = System.currentTimeMillis();
+							long start = System.nanoTime();
 							int algorithmTwo = slightlyLessStupidSophomore(n, array);
-							long end = System.currentTimeMillis();
-							System.out.println("Your time is " + (end - start) + " milli seconds");
-							System.out.println("Your stupid sum 2 is " + algorithmTwo);
+							long end = System.nanoTime();
+							long diff = (end - start);
+							for (int j = 0; j < 9; j++) {
+								long s = System.nanoTime();
+								slightlyLessStupidSophomore(n, array);
+								long e = System.nanoTime();
+								diff += (e - s);
+							}
+							System.out.print("Your time is ");
+							System.out.println(timeCalculator(diff/10));
+							System.out.println("Your algorithm sum 2 is " + algorithmTwo);
 						}
 							break;
 
@@ -172,8 +216,16 @@ class maxSum {
 							long start = System.nanoTime();
 							int algorithmThree = gettingSmarterJunior(array, l, r);
 							long end = System.nanoTime();
-							System.out.println("Your time is " + ((end - start)) + " nano seconds!!!");
-							System.out.println("Your stupid sum 3 is " + algorithmThree);
+							long diff = (end - start);
+							for (int j = 0; j < 9; j++) {
+								long s = System.nanoTime();
+								gettingSmarterJunior(array,l,r);
+								long e = System.nanoTime();
+								diff += (e - s);
+							}
+							System.out.print("Your time is ");
+							System.out.println(timeCalculator(diff/10));
+							System.out.println("Your algorithm sum 3 is " + algorithmThree);
 						}
 							break;
 
@@ -181,8 +233,16 @@ class maxSum {
 							long start = System.nanoTime();
 							int algorithmFour = superSmartSenior(array);
 							long end = System.nanoTime();
-							System.out.println("Your time is " + (end - start) + " nano seconds!!!");
-							System.out.println("Your stupid sum 4 is " + algorithmFour);
+							long diff = (end - start);
+							for (int j = 0; j < 9; j++) {
+								long s = System.nanoTime();
+								superSmartSenior(array);
+								long e = System.nanoTime();
+								diff += (e - s);
+							}
+							System.out.print("Your time is ");
+							System.out.println(timeCalculator(diff/10));
+							System.out.println("Your algorithm sum 4 is " + algorithmFour);
 						}
 							break;
 						}
@@ -211,7 +271,7 @@ class maxSum {
 				/**
 				 * second random generator
 				 */
-				System.out.println("How many elements in your other array?\n ");
+				System.out.println("How many elements in your other array?");
 				int n = in.nextInt();
 
 				for (i = 0; i < n; i++) {
@@ -223,72 +283,109 @@ class maxSum {
 				int rSecond = arraySecond.size() - 1;
 				{
 
-					System.out.println("Which algorithm would you like to run?\n Choose 1-4");
+					System.out.println("Which algorithm would you like to run?\nChoose one from 1-4");
 					int choice = in.nextInt();
 
 					switch (choice) {
 
 					case 1: {
-						long start = System.currentTimeMillis();
-						int algorithmOne = stupidFreshmen(m, array);
-						long end1 = System.currentTimeMillis();
-						System.out.println((end1 - start));
-						long prediction = (long) ((end1 - start) * (Math.pow(n, 3) / Math.pow(m, 3)));
-						System.out.println("Your time should be: " + prediction);
+						long start = System.nanoTime();
+						stupidFreshmen(m, array);
+						long end1 = System.nanoTime();
+						long diff = (end1 - start);
+						for (int j = 0; j < 9; j++) {
+							long s = System.nanoTime();
+							stupidFreshmen(m,array);
+							long e = System.nanoTime();
+							diff += (e - s);
+						}
+						System.out.print("First array runtime is ");
+						System.out.println(timeCalculator(diff/10));
+						long prediction = (long) ((diff/10) * (Math.pow(n, 3) / Math.pow(m, 3)));
+						System.out.println("Your time should be: " + timeCalculator(prediction));
 
-						start = System.currentTimeMillis();
-						algorithmOne = stupidFreshmen(n, arraySecond);
-						long end = System.currentTimeMillis();
-						System.out.println("Your time is " + (end - start) + " milli seconds");
+						start = System.nanoTime();
+						stupidFreshmen(n, arraySecond);
+						long end = System.nanoTime();
+						diff = end - start;
+						System.out.println(timeCalculator(diff));
 
 					}
 						break;
 
 					case 2: {
-						long start = System.currentTimeMillis();
-						int algorithmTwo = slightlyLessStupidSophomore(m, array);
-						long end1 = System.currentTimeMillis();
+						long start = System.nanoTime();
+						slightlyLessStupidSophomore(m, array);
+						long end1 = System.nanoTime();
+						long diff = (end1 - start);
+						for (int j = 0; j < 9; j++) {
+							long s = System.nanoTime();
+							slightlyLessStupidSophomore(m,array);
+							long e = System.nanoTime();
+							diff += (e - s);
+						}
+						System.out.print("First array runtime is ");
+						System.out.println(timeCalculator(diff/10));
+						long prediction = ((diff/10) * (long) (Math.pow(n, 2) / Math.pow(m, 2)));
+						System.out.println("your time should be "+ timeCalculator(prediction));
 
-						long prediction = ((end1 - start) * (long) (Math.pow(n, 2) / Math.pow(m, 2)));
-						System.out.println("Your time should be: " + prediction);
-
-						start = System.currentTimeMillis();
-						algorithmTwo = slightlyLessStupidSophomore(n, arraySecond);
-						long end = System.currentTimeMillis();
-						System.out.println("Your actual time is " + (end - start) + " milli seconds");
+						start = System.nanoTime();
+						slightlyLessStupidSophomore(n, arraySecond);
+						long end = System.nanoTime();
+						diff = end - start;
+						System.out.println(timeCalculator(diff));
 
 					}
 						break;
 
 					case 3: {
 						long start = System.nanoTime();
-						int algorithmThree = gettingSmarterJunior(array, l, r);
+						gettingSmarterJunior(array, l, r);
 						long end1 = System.nanoTime();
+						long diff = (end1 - start);
+						for (int j = 0; j < 9; j++) {
+							long s = System.nanoTime();
+							gettingSmarterJunior(array, l, r);
+							long e = System.nanoTime();
+							diff += (e - s);
+						}
 
-						long prediction = ((end1 - start)
+						System.out.print("First array runtime is ");
+						System.out.println(timeCalculator(diff/10));
+						long prediction = ((diff/10)
 								* (long) ((Math.log(n) / Math.log(2)) / (Math.log(m) / Math.log(2))));
-						System.out.println("Your time should be: " + prediction);
+						System.out.println("Your time should be: " + timeCalculator(prediction));
 
 						start = System.nanoTime();
-						algorithmThree = gettingSmarterJunior(arraySecond, lSecond, rSecond);
+						gettingSmarterJunior(arraySecond, lSecond, rSecond);
 						long end = System.nanoTime();
-						System.out.println("Your actual time is " + ((end - start)) + " nano seconds!!!");
+						diff = end - start;
+						System.out.println(timeCalculator(diff));
 
 					}
 						break;
 
 					case 4: {
 						long start = System.nanoTime();
-						int algorithmFour = superSmartSenior(array);
+						superSmartSenior(array);
 						long end1 = System.nanoTime();
-
-						long prediction = ((end1 - start) * (long) (n / m));
-						System.out.println("Your time should be: " + prediction);
+						long diff = (end1 - start);
+						for (int j = 0; j < 9; j++) {
+							long s = System.nanoTime();
+							superSmartSenior(array);
+							long e = System.nanoTime();
+							diff += (e - s);
+						}
+						System.out.print("First array runtime is ");
+						System.out.println(timeCalculator(diff/10));
+						long prediction = ((diff/10) * (long) (n / m));
+						System.out.println("Your time should be: " + timeCalculator(prediction));
 
 						start = System.nanoTime();
-						algorithmFour = superSmartSenior(arraySecond);
+						superSmartSenior(arraySecond);
 						long end = System.nanoTime();
-						System.out.println("Your time is " + (end - start) + " nano seconds!!!");
+						diff = end - start;
+						System.out.println(timeCalculator(diff));
 
 					}
 						break;
@@ -300,6 +397,7 @@ class maxSum {
 				break;
 
 			case 4: {
+				in.close();
 				System.out.println("Bye!");
 			}
 				break;
